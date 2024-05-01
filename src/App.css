@@ -1,38 +1,171 @@
-.App {
-  text-align: center;
+/* @import '~normalize.css'; */
+@import '~@blueprintjs/core/lib/css/blueprint.css';
+/* @import '~@blueprintjs/icons/lib/css/blueprint-icons.css'; */
+*{
+  margin:0;
+  padding:0;
+  box-sizing: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.head{
+  position: absolute;
+  left: 35%;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.add_emp{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: end;
+  border: 2px solid black;
+  padding: 10px;
+  position: relative;
+  background-color:silver;
+}
+.add{
+  border: 2px solid black;
+  padding: 10px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 500;
+  background-color: rgb(79, 68, 240);
+  color:white;
+}
+.add:hover{
+  background-color: gray;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.main{
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color:rgb(200, 200, 202);
 }
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.sub1{
+   width: 25rem;
+   height: 30rem;
+   border: 2px solid black;
+   background-color: aliceblue;
+   box-shadow: 10px;
+}
+.emp.list{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: 25.9rem;
+}
+.corner{
+  display: flex;
+  position: absolute;
+  top:15%;
+  right: 4px;
+  background-color:whitesmoke;
+  color: black;
+  /* padding: 5px; */
+  border-radius: 10px;
+  cursor: pointer;
+}
+.corner:hover{
+  border: 2px solid black;
+}
+.editi{
+  height: 25px;
+  width: 30px;
+}
+.edit{
+  padding-top: 4px;
+  padding-left: 2px;
+}
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid black;
+  background-color: rgba(66, 53, 53, 0.822);
+  color: white;
+}
+.sub2{
+  position: relative;
+  width: 30rem;
+  height: 30rem;
+  border: 2px solid black;
+  background-color: rgb(182, 223, 247);
+}
+.cross{
+  position: relative;
+  left: 30%;
+  cursor: pointer;
+}
+.image{
+  margin-top: 10px;
+  margin-left: 35%;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: blanchedalmond;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(202, 169, 169);
+  background-repeat: no-repeat;
+}
+img{
+  height: 145px;
+  width: 145px;
+  border-radius: 50%;
+}
+/* .container{
+  display: grid;
+  grid-template-areas:'h h h h'
+                     's1 s1 s2 s2';
+}
+.sub1{
+  grid-area:s1;
+  margin-left: 30px;
+  border: 2px solid black;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.sub2{
+   grid-area: s2;
+   margin-right: 30px;
+} */
+/* .add_emp{
+  grid-area: h;
+} */
+
+/* .form{
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  width: 40%; 
+  height: 50%; 
+  background-color: white;
+  padding: 5px;
+  transform: translate(-50%,-50%);
+}
+.btn{
+  display: flex;
+  justify-content: center;
+}
+h4{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+input{
+  padding: 10px;
+  margin: 5px;
+}
+.inp{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+} */
+ 
+.main.active{
+   filter: blur(5px);
+}
+.main.inactive{
+  filter: blur(0px);
 }

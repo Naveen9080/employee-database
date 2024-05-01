@@ -1,0 +1,47 @@
+@import '~@blueprintjs/core/lib/css/blueprint.css';
+
+.form{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 40%; 
+    height: 60%; 
+    background-color: white;
+    padding: 5px;
+    /* max-width: 40%;
+    min-width: 20%; */
+    transform: translate(-50%,-50%);
+    /* overflow-y:scroll; */
+}
+span:hover{
+    color: whitesmoke;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 5px;
+    background-color:green;
+    width: 98%;
+    margin-left: 5px;
+    margin-right: 2px;
+}
+.btn:disabled{
+    background-color: gray;
+}
+h3{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+input{
+    padding: 10px;
+    margin: 5px;
+}
+.inp{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,23 @@
+li{
+    position: relative;
+    background-color: antiquewhite;
+    color: black;
+    border: 2px solid black;
+    display: flex;
+    margin: 10px;
+    border-radius: 30px;
+    padding: 10px;
+    display: block;
+    width: 95%;
+    height: 10%;
+    cursor: pointer;
+}
+.icon{
+    position: absolute;
+    right: 5%;
+    cursor:not-allowed;
+}
+li:hover{
+    background-color: black;
+    color: white;
+}
