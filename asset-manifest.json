@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/employee-database/static/css/main.6fa69c8a.css",
+    "main.js": "/employee-database/static/js/main.1e7ea611.js",
+    "blueprint-icons-all-paths-loader.js": "/employee-database/static/js/blueprint-icons-all-paths-loader.c0d74d15.chunk.js",
+    "blueprint-icons-split-paths-by-size-loader.js": "/employee-database/static/js/blueprint-icons-split-paths-by-size-loader.2ae5eca8.chunk.js",
+    "static/js/453.a531f5dc.chunk.js": "/employee-database/static/js/453.a531f5dc.chunk.js",
+    "blueprint-icons-all-paths.js": "/employee-database/static/js/blueprint-icons-all-paths.cfbacb67.chunk.js",
+    "blueprint-icons-16px-paths.js": "/employee-database/static/js/blueprint-icons-16px-paths.cf637112.chunk.js",
+    "blueprint-icons-20px-paths.js": "/employee-database/static/js/blueprint-icons-20px-paths.6adc77ed.chunk.js",
+    "static/media/edit.png": "/employee-database/static/media/edit.ec5cb4347211345f9178.png",
+    "index.html": "/employee-database/index.html",
+    "main.6fa69c8a.css.map": "/employee-database/static/css/main.6fa69c8a.css.map",
+    "main.1e7ea611.js.map": "/employee-database/static/js/main.1e7ea611.js.map",
+    "blueprint-icons-all-paths-loader.c0d74d15.chunk.js.map": "/employee-database/static/js/blueprint-icons-all-paths-loader.c0d74d15.chunk.js.map",
+    "blueprint-icons-split-paths-by-size-loader.2ae5eca8.chunk.js.map": "/employee-database/static/js/blueprint-icons-split-paths-by-size-loader.2ae5eca8.chunk.js.map",
+    "453.a531f5dc.chunk.js.map": "/employee-database/static/js/453.a531f5dc.chunk.js.map",
+    "blueprint-icons-all-paths.cfbacb67.chunk.js.map": "/employee-database/static/js/blueprint-icons-all-paths.cfbacb67.chunk.js.map",
+    "blueprint-icons-16px-paths.cf637112.chunk.js.map": "/employee-database/static/js/blueprint-icons-16px-paths.cf637112.chunk.js.map",
+    "blueprint-icons-20px-paths.6adc77ed.chunk.js.map": "/employee-database/static/js/blueprint-icons-20px-paths.6adc77ed.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6fa69c8a.css",
+    "static/js/main.1e7ea611.js"
+  ]
+}
