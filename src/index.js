@@ -1,14 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Distribute from './Distribute';
+import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <App />
-  </>
+    <Distribute />
+  </>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

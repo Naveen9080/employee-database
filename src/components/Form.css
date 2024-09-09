@@ -2,20 +2,23 @@
 
 .form{
     position: absolute;
-    top: 55%;
+    top: 350px;
     left: 50%;
-    width: 40%; 
-    height: 60%; 
+    width: 500px; 
+    height: 400px; 
     background-color: white;
     padding: 5px;
-    /* max-width: 40%;
-    min-width: 20%; */
     transform: translate(-50%,-50%);
-    /* overflow-y:scroll; */
 }
 span:hover{
     color: whitesmoke;
 }
+.cross{
+    position: relative;
+    left: 30%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
 .btn{
     display: flex;
     justify-content: center;
@@ -34,7 +37,7 @@ h3{
     justify-content: center;
     padding: 10px;
 }
-input{
+.inp>input{
     padding: 10px;
     margin: 5px;
 }
@@ -44,4 +47,54 @@ input{
     gap: 10px;
     justify-content: center;
     align-items: center;
+}
+.hel{
+    top: 35%;
+    background-color: rgb(255, 255, 255);
+    height: 120px;
+    width: 350px; 
+    justify-content: center;
+    padding: 5px;
+  }
+.hel>button{
+    background-color: green;
+    color: white;
+    height: 35px;
+    margin-left: 5px;
+    border-radius: 10px;
+    padding: 3px;
+}
+.hel>input{
+    padding: 5px;
+    margin-left: 50px;
+}
+@media only screen and (max-width:700px) {
+    .inp{
+        display: block;
+        margin: 0 auto;
+    }
+    .form{
+        top: 325px;
+        width:350px;
+        height: 550px;
+        margin-left: 100px;
+        margin:auto;
+    }
+    .inp>input{
+        width: 300px;
+        display:block;
+        margin: 0 auto;
+        margin-bottom: 5px;
+    }
+    h3{
+       font-size: 15px;
+    }
+    .hel{
+        top: 35%;
+        background-color: rgb(255, 255, 255);
+        height: 120px;
+        width: 350px; 
+        justify-content: center;
+        padding: 5px;
+      }
 }

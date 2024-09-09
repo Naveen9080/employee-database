@@ -2,6 +2,7 @@ import './App.css';
 import './components/Form.css';
 import { Toaster } from '@blueprintjs/core';
 import editimg from './components/img/edit.png';
+import addsym from './components/img/addsym.jpg'
 import Details from './components/Details';
 import "./components/Iterate.css";
 import Update from './components/Update';
@@ -10,15 +11,70 @@ import { useRef } from 'react';
 const AppToaster=Toaster.create({
   position:'top'
 })
-function App() {
+function App({select}) {
+  console.log(select);
+   const [tab,setTab]=useState();
+   const [info,setinfo]=useState();
+   const [user,setuser]=useState();
+   const [tp,settp]=useState(-1);
+   //const [value,setvalue]=useState();
+   //const [use,setuse]=useState(false);
+
+  const fetchData = async (tid) => {
+    console.log(tid);
+    if(tid>0){
+    const response = await fetch(`http://localhost:8080/doit/getdetails/${tid}`);
+    const data = await response.json();
+    //const fdata=JSON.parse(response.json());
+    console.log("Details"+data);
+   await setinfo(data);
+    console.log(data);
+    }
+    // Transform data or update state with the fetched data
+   };
+
+
+  useEffect(() => {
+    console.log("fuck");
+    const fetchTable=async ()=>{
+      const response = await fetch(`http://localhost:8080/doit/getuser/${select.emailId}`);
+      const ValidTable = await response.json();
+      if(ValidTable.uid!==null){
+        window.localStorage.setItem('user',JSON.stringify(ValidTable));
+        window.localStorage.setItem('table',JSON.stringify(ValidTable.tmap));
+        setuser(JSON.parse(window.localStorage.getItem('user')));
+       // console.log(user+" welcome 1");
+        setTab(JSON.parse(window.localStorage.getItem('table')));
+       // console.log(tab+"welcome 2");
+      }
+      // setuser(ValidTable);
+      // addTab(ValidTable.tmap);
+      // console.table("hello world "+Object.keys(select));
+      // console.log("display value"+Object.values(select));
+    }
+    
+  fetchTable();
+  // let count=0;
+  // for(let value of Object.values(tab)){
+  //   count++;
+  // }
+  // console.log(count);
+  // if(count!==0){
+  //   settp(tab[0].tid);
+  //    fetchData(tp);
+  // }
+  },[]);
+  console.log("doit "+user+' '+tab);
+
+  // console.log("user details are in "+user.uid+" "+user.emailId);
   const [firstname,setfname]=useState("");
   const [lastname,setlname]=useState("");
   const [age,setage]=useState(0);
   const [salary,setsalary]=useState("");   
   const [dob,setdob]=useState("");
   const [role,setrole]=useState("");
-  const [ph_no,setpno]=useState("");
-  const [mailid,setmailid]=useState('');
+  const [pno,setpno]=useState("");
+  const [email,setmailid]=useState('');
   const [address,setaddress]=useState('');
   const [url,seturl]=useState('');
   const data=[
@@ -30,8 +86,8 @@ function App() {
     salary:20000,
     dob:'2003-04-02',
     role:'Developer',
-    ph_no:'9879342345',
-    mailid:'Ramraj@gmail.com',
+    pno:'9879342345',
+    email:'Ramraj@gmail.com',
     address:'west street,Salem',
     url:''
    },{
@@ -42,19 +98,24 @@ function App() {
     salary:20000,
     dob:'2003-12-02',   
     role:'Data Scientiest',
-    ph_no:'9879342345',
-    mailid:'rohitsharma@gmail.com',
+    pno:'9879342345',
+    email:'rohitsharma@gmail.com',
     address:'west street,Salem',
     url:''
    }
-  ]
-  const [id,setid]=useState(data.length+1);
+  ];
+  const [id,setid]=useState(13);
   const [value,setvalue]=useState(data);
   const [view,setview]=useState(false);
+  const [tview,settview]=useState(false);
+
   const menuref=useRef(null);
   const call=()=>{
      setview(!view);
   }
+  const callsub=()=>{
+    settview(!view);
+ }
   const change=(data)=>{
     setvalue(data);
     //console.log(data,newone);
@@ -62,22 +123,40 @@ function App() {
   const newcha=(newone)=>{
     setval(newone);
   }
-  const removeitem=(id)=>{
-    const newlist=value.filter((ele)=>ele.id!==id);
-    setvalue(newlist);
+  const removeitem=async(did)=>{
+    const newlist=value.filter((ele)=>ele.did!==did);
+    await fetch(`http://localhost:8080/doit/details/${did}`,
+      {
+        method:'DELETE'
+      }
+    )
+    setinfo(newlist);
+   // fetchuse();
   }
-  const add=(e)=>{
+  const add=async (e)=>{
+    e.preventDefault();
     setid(()=>id+3);
-    const newobj={id,firstname,lastname,age,salary,dob,role,ph_no,mailid,address,url};
-    setvalue((previousvalue)=>[...previousvalue,newobj]);
+    const newobj={firstname,lastname,age,salary,dob,role,pno,email,address,url};
+    const res=await fetch(`http://localhost:8080/doit/add_details/${tp}`,{
+      method:'POST',
+      body:JSON.stringify(newobj),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    });
+    const data=await res.json();
+    const alldata=await info;
+    await alldata?.push(data);
+    setinfo(alldata);
     // <List value={value}/>
-    //setval(newobj);
+    // setval(newobj);
     setview(false);
     AppToaster.show({
       message:'User Added Successfully',
       intent:'success',
       timeout:3000
-    })
+    });
+    //fetchuse();
     setfname('');
     setlname('');
     setage('');
@@ -93,6 +172,7 @@ function App() {
     if(!menuref.current.contains(e.target)){
      setview(false);
      seteditv(false);
+     settview(false);
     }
     else if(e.target.className==='cross' || e.target.className==='btn'){
        seteditv(false);
@@ -103,7 +183,7 @@ function App() {
     seteditv(!editv);
   }
   useEffect(()=>{
-    console.log(firstname);
+    // console.log(firstname);
     document.addEventListener("mousedown",handle);
     return()=> {
       document.removeEventListener("mousedown",handle);
@@ -112,31 +192,67 @@ function App() {
   const han=(e)=>{
     e.stopPropagation();
   }
-  const [val,setval]=useState(data[0]);
+  const [val,setval]=useState(value[0]);
   const showid=(item)=>{
     setval(item);
   }
-  
+  const [tablen,setTablen]=useState({
+    dname:''
+  })
+  const handledname=(e)=>{
+      const {name,value}=e.target;
+      setTablen({
+        [name]:value
+      })
+  }
+  const handletable=async(e)=>{
+        e.preventDefault();
+        // console.log("hello table id "+Object.keys(user));
+        // console.log(select);
+        // console.log('check '+tablen);
+        const res = await fetch(`http://localhost:8080/doit/add_table/${user.uid}`,{
+        method:'POST',
+        body:JSON.stringify(tablen),
+        headers:{
+          'Content-Type':'application/json'
+        }}); 
+        const newtable=await res.json();
+        console.log("welcome to table "+newtable);
+        setTab((previousvalue)=>[...previousvalue,newtable]);
+        settview(false);
+        setTablen({dname:''});
+        AppToaster.show({
+          message:'Table Created Successfully',
+          intent:'success',
+          timeout:3000
+        });
+  }
+  const switchtable=async(e)=>{
+    if(e.target.value>=0){
+      await settp(tab[e.target.value].tid);
+      fetchData(tab[e.target.value].tid);
+    }
+  }
   return (
     <>
-    <body className={`main ${view?`active`:editv?`active`:`inactive`}`}>
-      <div className='add_emp'  > 
+    <body className={`main ${view || tview?`active`:editv?`active`:`inactive`}`}>
+      <div className='add_emp'> 
+      <div className='leftcorner'>
+          <select className='sname' title='Select_table' onChange={e=>switchtable(e)}>
+            <option value={-1} onClick={e=>switchtable(e)}>Please choose your table</option>
+            {tab?.map((opt,index)=>{
+              return(
+              <option value={index} onClick={e=>switchtable(e)}>{opt.dname}</option>
+              );
+            })}
+          </select>
+          <img src={addsym} alt='/' className='addsym' title='Add_Table' onClick={callsub}/>
+        </div> 
         <h1 className='head'>Employee Database Management</h1>
         <div className='add' onClick={call}>Add Employee</div>
-
       </div>
-      <div className="container">
-        <div className="sub1">  
-         <h1 className="title">Employee List</h1>
-         <div className='emp list'>
-         <ul >
-            {value.map((ele) => (
-                <li key={ele.id} onClick={()=>showid(ele)} >{ele.firstname} {ele.lastname} <span className="icon" onClick={()=>{removeitem(ele.id)}}>&#10060;</span></li>
-            ))}
-          </ul>
-         </div>
-        </div>
-        <div className="sub2">
+      <div className="container">  
+       <div className="sub2">
           <h1 className="title">Employee Details</h1>
           <div className="image">
            {Object.keys(val.url).length===0?<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' alt='Not Found' />:<img src={val.url} alt='Not Found'/>}
@@ -149,12 +265,24 @@ function App() {
              <Details item={val} /> 
           </div>
         </div>
+        <div className="sub1">  
+         <h1 className="title">Employee List</h1>
+         <div className='emp list'>
+         <ul className='over'>
+            {info?.map((ele,index) => {
+               return( 
+                <li key={index} onClick={()=>showid(ele)} >{ele.firstname} {ele.lastname} <span className="icon" onClick={()=>{removeitem(ele.did)}}>&#10060;</span></li>
+                );
+            })};
+          </ul>
+         </div>
+        </div>
        </div>
     </body>
-    <div ref={menuref}>
+    <div ref={menuref} className='cen'>
     {view &&  
        <form className={`form ${view?`active`:`inactive`}`}  onClick={han}>
-       <h3>Enter the Information<p className='cross' onClick={()=>setview(false)}>&#10006;</p></h3>
+       <h3>Enter the Details<p className='cross' onClick={()=>setview(false)}>&#10006;</p></h3>
        <div className="inp">
          <input type='text' onChange={(e)=>setfname(e.target.value)} placeholder='FirstName' required></input>
          <input type='text' onChange={(e)=>setlname(e.target.value)} placeholder='LastName'></input>
@@ -167,12 +295,20 @@ function App() {
          <input type='text' onChange={(e)=>setaddress(e.target.value)}placeholder='Address'></input>
          <input type='url' placeholder='Image URL(optional)' onChange={(e)=>seturl(e.target.value)}></input>
        </div>
-       <button className='btn' disabled={firstname.length===0 ||lastname.length===0||age.length===0||age.length>2||role.length===0||salary.length===0||ph_no.length===0||ph_no.length>10|| !mailid.endsWith('@gmail.com') || address.length===0}>
-        <span onClick={add} type='submit' style={{cursor:'pointer'}}>Submit</span>
+       <button  className='btn' disabled={firstname.length===0 ||lastname.length===0||age.length===0||age.length>2||role.length===0||salary.length===0||pno.length===0||pno.length>10|| !email.endsWith('@gmail.com') || address.length===0}>
+        <span onClick={add} type='submit'>Submit</span>
        </button>
      </form>
    }
-   {editv && <Update item={val} editv={editv} fun={showedit} value={value} change={change} newcha={newcha}/>}
+   {tview&&
+      <form className={`form ${view?`active`:`inactive`} hel`} onClick={han}>
+       <h3>Enter Table Name<p className='cross' onClick={()=>settview(false)}>&#10006;</p></h3>
+       <input type='text' placeholder='Enter table Name' name='dname' onChange={(e)=>handledname(e)}></input>
+       <button onClick={(e)=>handletable(e)}>Create</button>
+       </form>
+   }
+   {/* fetchuse={fetchuse} */}
+   {editv && <Update item={val} editv={editv} fun={showedit} value={info} change={change} newcha={newcha} setinfo={setinfo} />}
  </div>
  </> 
   );

@@ -15,8 +15,8 @@ function Details(props){
                     <td>Salary : {item.salary}</td>
                 </tr>
                 <tr>
-                    <td>Phone no : {item.ph_no}</td>
-                    <td>Mail : {item.mailid}</td>
+                    <td>Phone no : {item.pno}</td>
+                    <td>Mail : {item.email}</td>
                 </tr>
                 {/* <tr>
                     <td>Address :-</td>

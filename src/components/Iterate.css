@@ -17,7 +17,7 @@ li{
     right: 5%;
     cursor:not-allowed;
 }
-li:hover{
+li:active{
     background-color: black;
     color: white;
 }
