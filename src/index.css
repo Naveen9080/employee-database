@@ -1,12 +1,28 @@
-table{
+h3+table{
   margin-top: 15px;
 }
-tr{
+h3+table>tr{
   padding-top: 10px;
 }
-td{
-  padding-left: 7px;
+h3+table>tr>td{
+  /* padding-left: 7px; */
+  font-family:Arial, Helvetica, sans-serif;
+  /* font-size: medium; */
+  /* font-weight: bolder; */
+  padding-right:5px;
 }
-.name{
+center>h3{
   margin-top: 5px;
+}
+td>span{
+  text-decoration: underline;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color:black;
+  padding-right: 5px;
+}
+table+h4{
+  padding-top: 5px;
+}
+td>span:hover{
+  color: black;
 }

@@ -7,16 +7,16 @@ function Details(props){
                 <h3 className='name'><u>{item.firstname+' '+item.lastname}</u></h3>
             <table style={{fontSize:'medium'}} className="show">
                 <tr>
-                    <td>Age : {item.age}</td>
-                    <td>D.O.B : {item.dob}</td>
+                    <td><span>Age :</span> {item.age}</td>
+                    <td><span>D.O.B :</span> {item.dob}</td>
                 </tr>
                 <tr>
-                    <td>Role : {item.role}</td>
-                    <td>Salary : {item.salary}</td>
+                    <td><span>Role :</span> {item.role}</td>
+                    <td><span>Salary :</span> {item.salary}</td>
                 </tr>
                 <tr>
-                    <td>Phone no : {item.pno}</td>
-                    <td>Mail : {item.email}</td>
+                    <td><span>Phone no :</span> {item.pno}</td>
+                    <td><span>Mail :</span> {item.email}</td>
                 </tr>
                 {/* <tr>
                     <td>Address :-</td>
