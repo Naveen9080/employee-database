@@ -10,6 +10,10 @@ function Login({setselect}){
     password:''
   });
   const relode=async(e)=>{
+    if(check.emailId.length===0 || check.password.length===0){
+      setmsg('please fill the field');
+    }
+    else{
     const response = await fetch(`http://localhost:8080/doit/getuser/${check.emailId}`);
     const Validdata = await response.json();
     console.log(check);
@@ -28,6 +32,7 @@ function Login({setselect}){
       }
     }
     //redirect('/employee-database/data')
+  }
   }
   const sign=()=>{
     redirect('/employee-database')
@@ -60,7 +65,7 @@ function Login({setselect}){
                             <td><input type="password" placeholder="Password" name="password" onChange={(e)=>handetails(e)}></input></td>
                         </tr>
                     </table>
-                    <button className='but cbut' onClick={relode}>Login</button>
+                    <button className='but cbut' onClick={relode} >Login</button>
                     <span>if don`t have an account <a onClick={sign}>sign up</a></span>
                     </div>
             </div>

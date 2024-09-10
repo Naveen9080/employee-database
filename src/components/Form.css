@@ -55,7 +55,11 @@ h3{
     width: 350px; 
     justify-content: center;
     padding: 5px;
+    text-align: center;
   }
+.hel>h3{
+    margin-top: 5px;
+}
 .hel>button{
     background-color: green;
     color: white;

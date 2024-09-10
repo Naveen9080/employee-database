@@ -6,6 +6,7 @@ import addsym from './components/img/addsym.jpg'
 import Details from './components/Details';
 import "./components/Iterate.css";
 import Update from './components/Update';
+import Errormsg from './components/Errormsg';
 import { useState ,useEffect} from 'react';
 import { useRef } from 'react';
 const AppToaster=Toaster.create({
@@ -21,52 +22,28 @@ function App({select}) {
    //const [use,setuse]=useState(false);
 
   const fetchData = async (tid) => {
-    console.log(tid);
     if(tid>0){
     const response = await fetch(`http://localhost:8080/doit/getdetails/${tid}`);
     const data = await response.json();
-    //const fdata=JSON.parse(response.json());
-    console.log("Details"+data);
-   await setinfo(data);
-    console.log(data);
+    await setinfo(data);
     }
-    // Transform data or update state with the fetched data
    };
 
 
   useEffect(() => {
-    console.log("fuck");
     const fetchTable=async ()=>{
       const response = await fetch(`http://localhost:8080/doit/getuser/${select.emailId}`);
       const ValidTable = await response.json();
       if(ValidTable.uid!==null){
         window.localStorage.setItem('user',JSON.stringify(ValidTable));
         window.localStorage.setItem('table',JSON.stringify(ValidTable.tmap));
-        setuser(JSON.parse(window.localStorage.getItem('user')));
-       // console.log(user+" welcome 1");
-        setTab(JSON.parse(window.localStorage.getItem('table')));
-       // console.log(tab+"welcome 2");
       }
-      // setuser(ValidTable);
-      // addTab(ValidTable.tmap);
-      // console.table("hello world "+Object.keys(select));
-      // console.log("display value"+Object.values(select));
+       setuser(JSON.parse(window.localStorage.getItem('user')));
+       setTab(JSON.parse(window.localStorage.getItem('table')));
     }
-    
   fetchTable();
-  // let count=0;
-  // for(let value of Object.values(tab)){
-  //   count++;
-  // }
-  // console.log(count);
-  // if(count!==0){
-  //   settp(tab[0].tid);
-  //    fetchData(tp);
-  // }
   },[]);
-  console.log("doit "+user+' '+tab);
 
-  // console.log("user details are in "+user.uid+" "+user.emailId);
   const [firstname,setfname]=useState("");
   const [lastname,setlname]=useState("");
   const [age,setage]=useState(0);
@@ -79,7 +56,7 @@ function App({select}) {
   const [url,seturl]=useState('');
   const data=[
    {
-    id:1,
+    did:0,
     firstname:'Ram',
     lastname:'Raj',
     age:18,
@@ -91,7 +68,7 @@ function App({select}) {
     address:'west street,Salem',
     url:''
    },{
-    id:2,
+    did:0,
     firstname:'Rohit',
     lastname:'Sharma',
     age:18,
@@ -118,7 +95,6 @@ function App({select}) {
  }
   const change=(data)=>{
     setvalue(data);
-    //console.log(data,newone);
   }
   const newcha=(newone)=>{
     setval(newone);
@@ -131,7 +107,6 @@ function App({select}) {
       }
     )
     setinfo(newlist);
-   // fetchuse();
   }
   const add=async (e)=>{
     e.preventDefault();
@@ -148,15 +123,12 @@ function App({select}) {
     const alldata=await info;
     await alldata?.push(data);
     setinfo(alldata);
-    // <List value={value}/>
-    // setval(newobj);
     setview(false);
     AppToaster.show({
       message:'User Added Successfully',
       intent:'success',
       timeout:3000
     });
-    //fetchuse();
     setfname('');
     setlname('');
     setage('');
@@ -168,14 +140,17 @@ function App({select}) {
     setaddress('');
     seturl('');
   };
+  const [msg,setmsg]=useState('');
   const handle=(e)=>{
     if(!menuref.current.contains(e.target)){
      setview(false);
      seteditv(false);
      settview(false);
+     setmsg('');
     }
     else if(e.target.className==='cross' || e.target.className==='btn'){
        seteditv(false);
+       setmsg('');
     }
   }
   const [editv,seteditv]=useState(false);
@@ -183,7 +158,6 @@ function App({select}) {
     seteditv(!editv);
   }
   useEffect(()=>{
-    // console.log(firstname);
     document.addEventListener("mousedown",handle);
     return()=> {
       document.removeEventListener("mousedown",handle);
@@ -192,7 +166,7 @@ function App({select}) {
   const han=(e)=>{
     e.stopPropagation();
   }
-  const [val,setval]=useState(value[0]);
+  const [val,setval]=useState(data[0]);
   const showid=(item)=>{
     setval(item);
   }
@@ -207,9 +181,7 @@ function App({select}) {
   }
   const handletable=async(e)=>{
         e.preventDefault();
-        // console.log("hello table id "+Object.keys(user));
-        // console.log(select);
-        // console.log('check '+tablen);
+        if(tablen.dname.length!==0){
         const res = await fetch(`http://localhost:8080/doit/add_table/${user.uid}`,{
         method:'POST',
         body:JSON.stringify(tablen),
@@ -226,6 +198,10 @@ function App({select}) {
           intent:'success',
           timeout:3000
         });
+      }
+      else{
+        setmsg('please enter the table name');
+      }
   }
   const switchtable=async(e)=>{
     if(e.target.value>=0){
@@ -303,11 +279,11 @@ function App({select}) {
    {tview&&
       <form className={`form ${view?`active`:`inactive`} hel`} onClick={han}>
        <h3>Enter Table Name<p className='cross' onClick={()=>settview(false)}>&#10006;</p></h3>
+       <Errormsg msg={msg}/><br></br>
        <input type='text' placeholder='Enter table Name' name='dname' onChange={(e)=>handledname(e)}></input>
        <button onClick={(e)=>handletable(e)}>Create</button>
        </form>
    }
-   {/* fetchuse={fetchuse} */}
    {editv && <Update item={val} editv={editv} fun={showedit} value={info} change={change} newcha={newcha} setinfo={setinfo} />}
  </div>
  </> 

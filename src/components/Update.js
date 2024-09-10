@@ -23,8 +23,8 @@ function Update(props){
     e.stopPropagation();
   }
    const update=async(did)=>{
+    if(did!==0){
     const newone={did,firstname,lastname,age,salary,dob,role,pno,email,address,url};
-    console.log('hello newone');
     await fetch(`http://localhost:8080/doit/editD/${did}`,{
       method:'PUT',
       body:JSON.stringify(newone),
@@ -32,7 +32,6 @@ function Update(props){
         'Content-Type':'application/json'
       }
     });
-    // props.fetchuse();
     props.setinfo((pre)=>pre.map((ele)=>{
       if(ele.did===did){
         return{
@@ -56,8 +55,20 @@ function Update(props){
     }, 1000);
     // props.fun();
   }
-  console.log(value);
-  props.change(value);
+  else{
+    setedit(false);
+    setTimeout(() => {
+    props.fun();
+    AppToaster.show({
+      message:'its sample info you can`t change it',
+      intent:'primary',
+      timeout:3000
+    })
+  }, 1000);
+
+  }
+  }
+ // props.change(value);
     return(
       <>
      {edit && <form className={`form ${edit?`active`:`inactive`}`}  onClick={han}>
