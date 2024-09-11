@@ -16,7 +16,7 @@ function SignUp(){
             setmsg("Please fill the field");
         }
         else{
-        const response = await fetch(`http://localhost:8080/doit/getuser/${signData.emailId}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/doit/getuser/${signData.emailId}`);
         const data= await response.json();
         if(!signData.emailId.endsWith("@gmail.com")){
             setmsg('Please enter valid Email ID');
@@ -30,7 +30,7 @@ function SignUp(){
         }
         else{
         setmsg('');
-        await fetch('http://localhost:8080/doit/add_user',{
+        await fetch(`${process.env.REACT_APP_API_URL}/doit/add_user`,{
             method:'POST',
             body:JSON.stringify(signData),
             headers:{
@@ -42,7 +42,7 @@ function SignUp(){
             emailId:'',
             password:''
         })
-        navigate('/employee-database/data');
+        navigate('/employee-database/login');
     }
 
     }

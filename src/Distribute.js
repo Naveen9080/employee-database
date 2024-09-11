@@ -8,9 +8,6 @@ import App from "./App";
 
 function Distribute() {
   const [select,setselect]=useState({});
-  if(Object.keys(select).length!==0){
-    window.localStorage.setItem('info',JSON.stringify(select));
-  }
   return (
     <div>
       <BrowserRouter>

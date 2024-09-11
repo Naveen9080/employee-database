@@ -25,7 +25,7 @@ function Update(props){
    const update=async(did)=>{
     if(did!==0){
     const newone={did,firstname,lastname,age,salary,dob,role,pno,email,address,url};
-    await fetch(`http://localhost:8080/doit/editD/${did}`,{
+    await fetch(`${process.env.REACT_APP_API_URL}/doit/editD/${did}`,{
       method:'PUT',
       body:JSON.stringify(newone),
       headers:{

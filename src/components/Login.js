@@ -14,7 +14,7 @@ function Login({setselect}){
       setmsg('please fill the field');
     }
     else{
-    const response = await fetch(`http://localhost:8080/doit/getuser/${check.emailId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/doit/getuser/${check.emailId}`);
     const Validdata = await response.json();
     console.log(check);
     console.log(Validdata);

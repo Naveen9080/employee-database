@@ -13,7 +13,7 @@ const AppToaster=Toaster.create({
   position:'top'
 })
 function App({select}) {
-  console.log(select);
+   console.log(select);
    const [tab,setTab]=useState();
    const [info,setinfo]=useState();
    const [user,setuser]=useState();
@@ -23,20 +23,22 @@ function App({select}) {
 
   const fetchData = async (tid) => {
     if(tid>0){
-    const response = await fetch(`http://localhost:8080/doit/getdetails/${tid}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/doit/getdetails/${tid}`);
     const data = await response.json();
     await setinfo(data);
     }
    };
-
-
   useEffect(() => {
     const fetchTable=async ()=>{
-      const response = await fetch(`http://localhost:8080/doit/getuser/${select.emailId}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/doit/getuser/${select.emailId}`);
       const ValidTable = await response.json();
       if(ValidTable.uid!==null){
         window.localStorage.setItem('user',JSON.stringify(ValidTable));
         window.localStorage.setItem('table',JSON.stringify(ValidTable.tmap));
+      }
+      else{
+        setuser();
+        setTab();
       }
        setuser(JSON.parse(window.localStorage.getItem('user')));
        setTab(JSON.parse(window.localStorage.getItem('table')));
@@ -101,7 +103,7 @@ function App({select}) {
   }
   const removeitem=async(did)=>{
     const newlist=value.filter((ele)=>ele.did!==did);
-    await fetch(`http://localhost:8080/doit/details/${did}`,
+    await fetch(`${process.env.REACT_APP_API_URL}/doit/details/${did}`,
       {
         method:'DELETE'
       }
@@ -112,7 +114,7 @@ function App({select}) {
     e.preventDefault();
     setid(()=>id+3);
     const newobj={firstname,lastname,age,salary,dob,role,pno,email,address,url};
-    const res=await fetch(`http://localhost:8080/doit/add_details/${tp}`,{
+    const res=await fetch(`${process.env.REACT_APP_API_URL}/doit/add_details/${tp}`,{
       method:'POST',
       body:JSON.stringify(newobj),
       headers:{
@@ -182,7 +184,7 @@ function App({select}) {
   const handletable=async(e)=>{
         e.preventDefault();
         if(tablen.dname.length!==0){
-        const res = await fetch(`http://localhost:8080/doit/add_table/${user.uid}`,{
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/doit/add_table/${user.uid}`,{
         method:'POST',
         body:JSON.stringify(tablen),
         headers:{
